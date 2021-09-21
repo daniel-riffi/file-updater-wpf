@@ -1,0 +1,18 @@
+﻿<Application x:Class="file_updater_wpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:file_updater_wpf"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="WinAll" TargetType="{x:Type Window}">
+                <Setter Property="FontFamily" Value="Fonts/#Dosis" />
+                <Setter Property="FontWeight" Value="Light" />
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Themes/AppButton.xaml"/>
+                <ResourceDictionary Source="./Themes/AppLabel.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
