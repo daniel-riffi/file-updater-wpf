@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:file_updater_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="500"
+        Title="MainWindow" Height="300" Width="500"
         WindowStyle="None"
         ResizeMode="NoResize"
         AllowsTransparency="True"
@@ -135,6 +135,54 @@
                         VerticalAlignment="Center"
                         Style="{StaticResource AppButton}"
                         Command="{Binding SelectToPath}"/>
+                </Grid>
+                <Label Content="Ignore or include file"
+                   Foreground="#DDDDDD"
+                   FontSize="10"
+                   Margin="4,0,0,2"/>
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                       Foreground="#DDDDDD"
+                       Background="#232323"
+                       Style="{StaticResource AppLabel}">
+                        <Label.Content>
+                            <AccessText TextWrapping="Wrap" Text="{Binding FupFilePath, Mode=OneWay}"/>
+                        </Label.Content>
+                    </Label>
+                    <Button Content="-" 
+                        Grid.Column="1"
+                        BorderThickness="0"
+                        Foreground="#DDDDDD"
+                        Command="{Binding RemoveFupFile}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border 
+                                                    CornerRadius="4"
+                                                    Background="#262626"
+                                                    Width="25"
+                                                    Margin="8,0,12,0">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Content="Select"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource AppButton}"
+                        Command="{Binding SelectFupFilePath}"/>
                 </Grid>
             </StackPanel>
             <Button Content="Update"

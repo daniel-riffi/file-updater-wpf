@@ -33,6 +33,18 @@ namespace file_updater_wpf.MVVM.ViewModels
             }
         }
 
+        private string fupFilePath;
+
+        public string FupFilePath
+        {
+            get { return fupFilePath; }
+            set { 
+                fupFilePath = value;
+                RaisePropertyChangedEvent(nameof(FupFilePath));
+            }
+        }
+
+
         public ICommand SelectFromPath => new RelayCommand<string>(
             DoSelectFromPath,
             x => true
@@ -53,6 +65,25 @@ namespace file_updater_wpf.MVVM.ViewModels
             ToPath = ShowFolderBrowserDialog();
         }
 
+        public ICommand SelectFupFilePath => new RelayCommand<string>(
+            DoSelectFupFilePath,
+            x => true
+        );
+
+        private void DoSelectFupFilePath(string obj)
+        {
+            FupFilePath = ShowFileBrowserDialog();
+        }
+
+        public ICommand RemoveFupFile => new RelayCommand<string>(
+            DoRemoveFupFile,
+            x => true
+        );
+
+        private void DoRemoveFupFile(string obj)
+        {
+            FupFilePath = "";
+        }
 
         public ICommand UpdateFiles => new RelayCommand<string>(
             DoUpdateFiles,
@@ -62,7 +93,8 @@ namespace file_updater_wpf.MVVM.ViewModels
         private void DoUpdateFiles(string obj)
         {
             var program = @"C:\Program Files\lofup\lofup.exe";
-            var command = $"\"{program}\" \"{fromPath}\" \"{toPath}\"";
+            var fupFile = fupFilePath != null && fupFilePath != "" ? $"\"{fupFilePath}\"" : "";
+            var command = $"\"{program}\" \"{fromPath}\" \"{toPath}\" {fupFile}";
 
             Process.Start(command);
         }
@@ -82,6 +114,19 @@ namespace file_updater_wpf.MVVM.ViewModels
             if (dialog.ShowDialog(mainWindow).GetValueOrDefault())
             {
                 var path = dialog.SelectedPath;
+                return path;
+            }
+            return null;
+        }
+
+        private string ShowFileBrowserDialog()
+        {
+            var dialog = new Ookii.Dialogs.Wpf.VistaOpenFileDialog();
+            dialog.Multiselect = false;
+            dialog.Filter = "Text files (*.txt)|*.txt";
+            if (dialog.ShowDialog(mainWindow).GetValueOrDefault())
+            {
+                var path = dialog.FileName;
                 return path;
             }
             return null;
